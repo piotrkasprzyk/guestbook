@@ -4,10 +4,11 @@ require_once "helper.php";
 
 $params = unpack_params($_GET["a"]);
 if (($params == null) || ($params["_s"] !== "confirmed")) {
-    echo "cannot parse";
+    echo "Incorrect link parameters";
+    http_response_code(400);
 } else {
 
-    $conn = mysqli_connect("$host", "$username", "$password") or die("cannot connect to server");
+    $conn = mysqli_connect("$db_host", "$db_username", "$db_password") or die("cannot connect to server");
     mysqli_select_db($conn, "$db_name") or die("cannot select DB");
     mysqli_set_charset($conn, 'utf8');
 
@@ -22,7 +23,7 @@ if (($params == null) || ($params["_s"] !== "confirmed")) {
         echo "success";
     } else {
         echo "ERROR";
-    }
+    };
     mysqli_close($conn);
 }
 ?>
