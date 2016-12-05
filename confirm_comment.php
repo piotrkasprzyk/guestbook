@@ -1,6 +1,7 @@
 <?php
 require_once "helper.php";
 require_once "mailer.php";
+require_once "db.php";
 
 $params = unpack_params($_GET["a"]);
 if (($params == null) || ($params["_s"] !== "new")) {
@@ -10,6 +11,9 @@ if (($params == null) || ($params["_s"] !== "new")) {
     $params["_s"] = "confirmed";
     $link = $base_url . '/accept_comment.php?a=' . pack_params($params);
 
-    send_acceptance_link($params, $link);
+    // one comment per email
+    if (!email_exists($params["email"])) {
+        send_acceptance_link($params, $link);
+    };
 };
 ?>
