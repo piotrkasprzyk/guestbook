@@ -1,5 +1,6 @@
 <?php
 require_once "config.php";
+require_once "bad_words.php";
 
 function get_hash($s) {
     global $secret_string;
@@ -45,5 +46,23 @@ function unpack_params($s) {
 
     return $params;
 };
+
+function startswith($word, $prefix) {
+    return substr($word, 0, strlen($prefix)) === $prefix;
+}
+
+function is_inappropriate($text) {
+    global $bad_prefixes;
+    $words = explode(' ', $text);
+    foreach($words as $word) {
+        $normalized_word = strtolower($word);
+        foreach ($bad_prefixes as $banned) {
+            if (startswith($normalized_word, $banned)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 ?>

@@ -52,7 +52,7 @@ function get_last_comments($count) {
     return $comments;
 };
 
-function create_entry($email, $instytucja, $tekst) {
+function create_entry($email, $instytucja, $tekst, $timestamp) {
     global $tbl_name;
 
     $conn = begin_conn();
@@ -61,7 +61,7 @@ function create_entry($email, $instytucja, $tekst) {
     $instytucja = mysqli_real_escape_string($conn, $instytucja);
     $tekst = mysqli_real_escape_string($conn, $tekst);
 
-    $sql = "INSERT INTO $tbl_name(email, instytucja, tekst) VALUES ('$email', '$instytucja', '$tekst')";
+    $sql = "INSERT INTO $tbl_name(email, instytucja, tekst, ts) VALUES ('$email', '$instytucja', '$tekst', '$timestamp')";
     $result = mysqli_query($conn, $sql);
 
     if ($result) {

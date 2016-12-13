@@ -14,6 +14,7 @@ if (($params == null) || ($params["_s"] !== "new")) {
     // one comment per email
     if (!email_exists($params["email"])) {
         send_acceptance_link($params, $link);
+        echo "OK";
     };
 };
 ?>
