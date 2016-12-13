@@ -7,6 +7,7 @@ $params = unpack_params($_GET["a"]);
 if (($params == null) || ($params["_s"] !== "confirmed")) {
     echo "Incorrect link parameters";
     http_response_code(400);
+    return;
 } else {
     create_entry($params["email"], $params["instytucja"], $params["tekst"], $params["timestamp"]);
     echo "OK";

@@ -6,6 +6,7 @@ require_once "db.php";
 if (!isset($_POST["tekst"]) || !isset($_POST["email"]) || !isset($_POST["instytucja"])) {
     echo "Incorrect arguments";
     http_response_code(400);
+    return;
 }
 
 $params = array(
@@ -18,6 +19,7 @@ $params = array(
 if (is_inappropriate($_POST["tekst"])) {
     echo "Banned word used";
     http_response_code(400);
+    return;
 }
 
 $params["_s"] = "new";
