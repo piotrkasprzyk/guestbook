@@ -10,13 +10,13 @@ function send_email($target_email, $subject, $message) {
     $headers .= "To: $target_email" . "\r\n";
     $headers .= "From: $email_author" . "\r\n";
 
-    mail($target_email, "=?UTF-8?B?" . base64_encode($subject) . "?=", $message, $headers);
+    mail('', "=?UTF-8?B?" . base64_encode($subject) . "?=", $message, $headers);
 };
 
 function send_confirmation_link($target_email, $params, $link) {
     $text = $params["tekst"];
 
-    $message = "<p>Kliknij w link <a href='$link'>$link</a>, aby dodać poniższy komentarz:</p>"
+    $message = "<p>Kliknij w link <a href='$link'>$link</a>, aby dodać poniższy wpis:</p>"
         . "<p>$text</p>";
 
     send_email($target_email, "Wpis w księdze pamiątkowej", $message);
@@ -26,9 +26,10 @@ function send_acceptance_link($params, $link) {
     global $moderator_emails;
 
     $text = $params["tekst"];
+    $podpis = $params["podpis"];
     $email = $params["email"];
-    $message = "<p>Kliknij w link <a href='$link'>$link</a>, aby zaakceptować poniższy komentarz, dodany przez "
-        . "<i>$email</i>:</p>"
+    $message = "<p>Kliknij w link <a href='$link'>$link</a>, aby zaakceptować poniższy wpis, dodany przez "
+        . "<i>$podpis ($email)</i>:</p>"
         . "<p>$text</p>"
         . "<p>Aby odrzucić komentarz, po prostu skasuj ten email.</p>";
 

@@ -7,17 +7,18 @@ mysqli_set_charset($conn, 'utf8');
 
 $sql = "CREATE TABLE IF NOT EXISTS $tbl_name"
     . "("
-    . "   email VARCHAR(30) PRIMARY KEY"
-    . " , instytucja VARCHAR(50)"
-    . " , tekst VARCHAR(200)"
-    . " , ts TIMESTAMP"
+    . "   email VARCHAR(100) PRIMARY KEY"
+    . " , podpis VARCHAR(100)"
+    . " , instytucja VARCHAR(100)"
+    . " , tekst VARCHAR(1000)"
+    . " , ts DATETIME"
     . " , INDEX (ts)"
     . ")"
     . " CHARACTER SET=utf8";
 $result = mysqli_query($conn, $sql);
 
 if ($result) {
-    echo "success";
+    echo "OK";
 } else {
     echo "ERROR";
 }

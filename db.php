@@ -39,7 +39,7 @@ function get_last_comments($count) {
 
     $conn = begin_conn();
 
-    $sql = "SELECT email, instytucja, tekst FROM $tbl_name ORDER BY ts DESC LIMIT $count";
+    $sql = "SELECT email, podpis, instytucja, tekst, ts FROM $tbl_name ORDER BY ts DESC LIMIT $count";
     $result = mysqli_query($conn, $sql);
 
     $comments = [];
@@ -52,20 +52,23 @@ function get_last_comments($count) {
     return $comments;
 };
 
-function create_entry($email, $instytucja, $tekst, $timestamp) {
+function create_entry($email, $podpis, $instytucja, $tekst, $timestamp) {
     global $tbl_name;
 
     $conn = begin_conn();
 
     $email = mysqli_real_escape_string($conn, $email);
+    $podpis = mysqli_real_escape_string($conn, $podpis);
     $instytucja = mysqli_real_escape_string($conn, $instytucja);
     $tekst = mysqli_real_escape_string($conn, $tekst);
+    $datetime = date("Y-m-d H:i:s", $timestamp);
 
-    $sql = "INSERT INTO $tbl_name(email, instytucja, tekst, ts) VALUES ('$email', '$instytucja', '$tekst', '$timestamp')";
+    $sql = "INSERT INTO $tbl_name(email, podpis, instytucja, tekst, ts) VALUES ('$email', '$podpis', '$instytucja', '$tekst', '$datetime')";
+    echo $sql;
     $result = mysqli_query($conn, $sql);
 
     if ($result) {
-        echo "success";
+        echo "OK";
     } else {
         echo "ERROR";
     };
